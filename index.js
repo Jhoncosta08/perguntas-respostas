@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const connection = require('./database/database');
-const perguntaModel = require('./database/models/pergunta');
+const pergunta = require('./database/models/pergunta');
 
 connection.authenticate().then(() => {
     console.log('database connected with api');
@@ -27,7 +27,15 @@ app.get('/perguntar', (req, res) => {
 app.post('/salvarpergunta', (req, res) => {
     let titulo = req.body.titulo;
     let descricao = req.body.descricao;
-    res.send(`Formulário recebido, Titulo: ${titulo}, descrição: ${descricao}`);
+    pergunta.create({
+        titulo: titulo,
+        descricao: descricao
+    }).then(() => {
+        console.log('Pergunta criada com sucesso.');
+        res.redirect('/');
+    }).catch((error) => {
+        console.log(error);
+    });
 });
 
 

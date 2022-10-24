@@ -17,3 +17,6 @@ pergunta.sync({force: false}).then(() => {
 }).catch((error => {
     console.log(error);
 }));
+
+
+module.exports = pergunta;
