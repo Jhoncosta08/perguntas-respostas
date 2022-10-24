@@ -50,6 +50,23 @@ app.post('/salvarpergunta', (req, res) => {
 });
 
 
+app.get('/pergunta/:id', (req, res) => {
+    let id = req.params.id;
+    pergunta.findOne({
+        where: {id: id},
+        raw: true
+    }).then(pergunta => {
+        if(pergunta) {
+            res.render('pergunta', {pergunta: pergunta});
+        }else {
+            res.redirect('/');
+        }
+    }).catch((error) => {
+        console.log(error);
+    });
+});
+
+
 app.listen(3000, () => {
     console.log('App running');
 });
