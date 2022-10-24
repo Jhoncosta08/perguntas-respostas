@@ -17,7 +17,10 @@ app.use(bodyParser.json());
 
 
 app.get('/', (req, res) => {
-    pergunta.findAll({ raw: true }).then(perguntas => {
+    let orderBy = [
+        ['createdAt', 'DESC']
+    ];
+    pergunta.findAll({ raw: true, order: orderBy}).then(perguntas => {
         res.render('index', {
             perguntas: perguntas
         });
@@ -26,9 +29,11 @@ app.get('/', (req, res) => {
     });
 });
 
+
 app.get('/perguntar', (req, res) => {
     res.render('perguntar');
 });
+
 
 app.post('/salvarpergunta', (req, res) => {
     let titulo = req.body.titulo;
