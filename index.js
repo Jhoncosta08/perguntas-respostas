@@ -33,11 +33,11 @@ app.get('/perguntar', (req, res) => {
 app.post('/salvarpergunta', (req, res) => {
     let titulo = req.body.titulo;
     let descricao = req.body.descricao;
-    pergunta.create({
+    let body = {
         titulo: titulo,
         descricao: descricao
-    }).then(() => {
-        console.log('Pergunta criada com sucesso.');
+    };
+    pergunta.create(body).then(() => {
         res.redirect('/');
     }).catch((error) => {
         console.log(error);
