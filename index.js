@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const connection = require('./database/database');
 const pergunta = require('./database/models/pergunta');
+const resposta = require('./database/models/resposta');
 
 connection.authenticate().then(() => {
     console.log('database connected with api');
