@@ -58,7 +58,21 @@ app.get('/pergunta/:id', (req, res) => {
         raw: true
     }).then(pergunta => {
         if(pergunta) {
-            res.render('pergunta', {pergunta: pergunta});
+            resposta.findAll({
+                where: {
+                    perguntaId: pergunta.id
+                },
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            }).then((respostas) => {
+                res.render('pergunta', {
+                    pergunta: pergunta,
+                    respostas: respostas
+                });
+            }).catch(error => {
+                console.log(error);
+            });
         }else {
             res.redirect('/');
         }
